@@ -7,7 +7,9 @@ import (
 func main() {
 	app := gofr.New()
 
-	app.GET("/", func(ctx *gofr.Context) (interface{}, error) {
+	app.Server.Router.Prefix("/test-service")
+
+	app.GET("", func(ctx *gofr.Context) (interface{}, error) {
 		return "Hello GoFr!", nil
 	})
 
