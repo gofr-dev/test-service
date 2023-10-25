@@ -13,18 +13,18 @@ func main() {
 	app := gofr.New()
 
 	// Push some gofr repo related metrics to see its progress over time.
-	_ = app.NewCounter("gofr_repo_stargazers", "number of stargazers of gofr repo")
-	_ = app.NewCounter("gofr_repo_subscribers", "number of subscribers of gofr repo")
+	_ = app.NewGauge("gofr_repo_stargazers", "number of stargazers of gofr repo")
+	_ = app.NewGauge("gofr_repo_subscribers", "number of subscribers of gofr repo")
 	// Start a go routine to fill in the counters every 5 min
 	go func() {
 		for {
 			stargazers, subscribers := getGofrRepoStats(app.Logger)
 			app.Logger.Debugf("Got stargazer count: %d, subscribers: %d", stargazers, subscribers)
-			err := app.Metric.AddCounter("gofr_repo_stargazers", float64(stargazers))
+			err := app.Metric.SetGauge("gofr_repo_stargazers", float64(stargazers))
 			if err != nil {
 				app.Logger.Error(err)
 			}
-			err = app.Metric.AddCounter("gofr_repo_subscribers", float64(subscribers))
+			err = app.Metric.SetGauge("gofr_repo_subscribers", float64(subscribers))
 			if err != nil {
 				app.Logger.Error(err)
 			}
