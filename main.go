@@ -8,6 +8,10 @@ func main() {
 	app := gofr.New()
 
 	app.GET("/", func(ctx *gofr.Context) (interface{}, error) {
+		return "Hello GoFr!", nil
+	})
+
+	app.GET("/test", func(ctx *gofr.Context) (interface{}, error) {
 		var resp string
 
 		err := ctx.Redis.Get(ctx, "test").Scan(&resp)
