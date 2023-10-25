@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 🐳 Dockerize - Stage
     needs: [ build ]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 🚀 Deploy to Stage
     needs: [ dockerize_stage ]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
@@ -136,7 +136,7 @@ jobs:
         run: gcloud container clusters get-credentials products-cluster --zone=us-central1 --project=zs-products
 
       - name: Set Deployment Image
-        run: kubectl set image deployment/$app_name $app_name=gcr.io/zs-products/test-service:${{ github.sha }} --namespace gofr-stage
+        run: kubectl set image deployment/${{ env.app_name }} ${{ env.app_name }}=gcr.io/zs-products/${{ env.app_name }}:${{ github.sha }} --namespace gofr-stage
 
   prod_deployment:
     runs-on: ubuntu-latest
@@ -161,4 +161,4 @@ jobs:
         run: gcloud container clusters get-credentials products-cluster --zone=us-central1 --project=zs-products
 
       - name: Set Deployment Image
-        run: kubectl set image deployment/$app_name $app_name=gcr.io/zs-products/test-service:${{ env.RELEASE_VERSION }} --namespace gofr
+        run: kubectl set image deployment/${{ env.app_name }} ${{ env.app_name }}=gcr.io/zs-products/${{ env.app_name }}:${{ env.RELEASE_VERSION }} --namespace gofr
