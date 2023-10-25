@@ -18,5 +18,17 @@ func main() {
 		return resp, nil
 	})
 
+	app.GET("/count", func(ctx *gofr.Context) (interface{}, error) {
+		var count int
+
+		row := ctx.DB().QueryRowContext(ctx, "SELECT count(*) FROM user")
+
+		if err := row.Scan(&count); err != nil {
+			return nil, err
+		}
+
+		return count, nil
+	})
+
 	app.Start()
 }
