@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Test Service",
+    "description": "An example microservice built using gofr framework",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/" : {
+      "get" : {
+        "tags": [
+          "test-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "properties": {
+                    "data" : {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "data" : "Hello Gofr!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test" : {
+      "get" : {
+        "tags": [
+          "test-service"
+        ],
+        "responses": {
+          "200" : {
+            "description": "success",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "properties": {
+                    "data" : {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "data" : "1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/count" : {
+      "get" : {
+        "tags": [
+          "test-service"
+        ],
+        "responses": {
+          "200" : {
+            "description": "Success",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "properties": {
+                    "data" : {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "data" : 10
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
