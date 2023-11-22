@@ -38,8 +38,6 @@ func main() {
 		}
 	}()
 
-	app.Server.Router.Prefix("/test-service")
-
 	app.GET("", func(ctx *gofr.Context) (interface{}, error) {
 		return "Hello GoFr!", nil
 	})
